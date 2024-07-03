@@ -1,4 +1,7 @@
 from openai import OpenAI
+import math
+from vectorstore import VectorStore
+
 
 count = 1
 while True:
@@ -45,7 +48,7 @@ while True:
     ]
     )
 
-
+    weight = math.log10(count)
     response = completion.choices[0].message.content
     f.write(response+'\n')
     print(response)
@@ -53,7 +56,7 @@ while True:
 
     c = open("context.txt",'a',encoding="utf8")
     c.write('\n')
-    c.write("Context Weight: " + str(count)+"\nUser Question: " + question)
+    c.write("Context Weight: " + str(weight)+"\nUser Question: " + question)
     c.write("\nYour answer to the question: "+response)
     c.write("\n\n")
     c.close()
